@@ -1,0 +1,61 @@
+Revision history for Overload-FileCheck
+
+{{$NEXT}}
+
+0.012     2022-01-20 19:00:46-07:00 America/Denver
+
+- Fix regression from previous release when checking PL_statcache
+
+0.011     2022-01-10 09:17:19-07:00 America/Denver
+
+- Better handling of nonexistent stat() values - Sawyer X
+- Fix macOS when running tests privileged - FGasper
+
+0.010     2020-08-10 17:19:58-06:00 America/Denver
+
+- update ppport.h to version 3.59
+- adjust -e and other check for Perl <= 5.14
+- fix -e: now returns 'undef' when false and not ''
+- fix unit tests failures on darwin
+- fix compilation warning on darwin
+- external link is clickable in POD - Mohammad S Anwar <mohammad.anwar@yahoo.com>
+
+0.009     2019-01-24 14:01:45-07:00 America/Denver
+
+0.008     2018-12-26 14:11:45-07:00 America/Denver
+
+0.007     2018-12-21 17:33:15-06:00 America/Chicago
+
+Fix stack corruption: Bizarre copy of ARRAY in list assignment
+
+0.006     2018-10-29 10:59:05-05:00 America/Chicago
+
+fallback to Perl OP when filecheck is called with _ or *_ (use statcache)
+
+0.005     2018-10-25 12:58:55-05:00 America/Chicago
+
+improve POD and Markdown documentation
+
+0.004     2018-10-24 14:18:10-05:00 America/Chicago
+
+- fix XS compilation issue on some systems
+
+0.003     2018-10-24 12:55:07-05:00 America/Chicago
+
+- fix t/mock-setting-errno.t on server not using english as locale
+- adjust several checks to use stat instead of lstat
+
+0.002     2018-10-23 17:12:06-05:00 America/Chicago
+
+- mock_stat can handle empty array ref return
+- fix unclosed C comment in FileCheck.xs
+- avoid issues with test files and case insensitive file systems
+- use stat instead of lstat when possible
+- hide the second call to lstat (GH #4)
+- add helpers for stat: stat_as_file, stat_as_directory...
+
+0.001     2018-10-19 16:58:00-05:00 America/Chicago
+
+First version, this is a very alpha state
+    use it at your own risk
+
