@@ -1,0 +1,155 @@
+package Perl::Critic::Policy::PreferredModules;
+
+use strict;
+use warnings;
+
+use Perl::Critic::Utils qw{ :severities :classification :ppi $SEVERITY_MEDIUM $TRUE $FALSE };
+use parent 'Perl::Critic::Policy';
+
+use Perl::Critic::Exception::AggregateConfiguration ();
+use Perl::Critic::Exception::Configuration::Generic ();
+
+use Config::INI::Reader ();
+
+sub supported_parameters {
+    return (
+        {
+            name        => 'config',
+            description => 'Config::INI file listing recommendations.',
+            behavior    => 'string',
+        },
+    );
+}
+
+use constant default_severity => $SEVERITY_MEDIUM;
+use constant default_themes   => qw{ core bugs };
+use constant applies_to       => 'PPI::Statement::Include';
+
+sub initialize_if_enabled {
+    my ( $self, $config ) = @_;
+
+    my $cfg_file = $config->get('config');
+
+    return $self->_parse_config($cfg_file) ? $TRUE : $FALSE;
+}
+
+sub _add_exception {
+    my ( $self, $msg ) = @_;
+
+    $msg //= q[Unknown Error];
+
+    $msg = __PACKAGE__ . ' ' . $msg;
+
+    my $errors = Perl::Critic::Exception::AggregateConfiguration->new();
+
+    $errors->add_exception( Perl::Critic::Exception::Configuration::Generic->throw( message => $msg ) );
+
+    return;
+}
+
+sub _parse_config {
+    my ( $self, $cfg_file ) = @_;
+
+    if ( !length $cfg_file ) {
+        return $self->_add_exception(q['config' is not set for policy.]);
+    }
+
+    if ( !-e $cfg_file ) {
+        return $self->_add_exception(qq[config file '$cfg_file' does not exist.]);
+    }
+
+    return unless $cfg_file && -e $cfg_file;
+
+    # slurp the file rather than using `read_file` for compat with Test::MockFile
+    my $content;
+    {
+        local $/;
+        open my $fh, '<', $cfg_file or return;
+        $content = <$fh>;
+    }
+
+    my $preferred_cfg;
+    eval { $preferred_cfg = Config::INI::Reader->read_string($content); 1 } or do {
+        return $self->_add_exception(qq[Invalid configuration file $cfg_file]);
+    };
+
+    my @optional_args = qw{ prefer reason };
+    my %valid_opts    = map { $_ => 1 } @optional_args;
+
+    foreach my $pkg ( keys %$preferred_cfg ) {
+        my $setup = $preferred_cfg->{$pkg};
+
+        my @has_opts = keys %$setup;
+        foreach my $opt (@has_opts) {
+            next if $valid_opts{$opt};
+            $self->_add_exception("Invalid configuration - Package '$pkg' is using an unknown setting '$opt'");
+        }
+    }
+
+    $self->{_cfg_preferred_modules} = $preferred_cfg;
+
+    return 1;
+}
+
+sub violates {
+    my ( $self, $elem ) = @_;
+
+    return () unless $elem;
+
+    my $module = $elem->module;
+
+    return () unless defined $module;
+    return () unless my $setup = $self->{_cfg_preferred_modules}->{$module};
+
+    my $desc = qq[Using module $module is not recommended];
+    my $expl = $setup->{reason} // $desc;
+
+    if ( my $prefer = $setup->{prefer} ) {
+        $desc = "Prefer using module module $prefer over $module";
+    }
+
+    return $self->violation( $desc, $expl, $elem );
+}
+
+1;
+
+=head1 NAME
+
+Perl::Critic::Policy::PreferredModules - Custom package recommendations
+
+=head1 DESCRIPTION
+
+Every project could have its own rules for preferring some specific packages 
+over some others.
+
+This Policy tries to be `non opiniated` and let the use customize the modules
+preference list and provide a reason at the same time.
+
+=head1 MODULES
+
+=head1 CONFIGURATION
+
+To use L<Perl::Critic::Policy::PreferredModules> you have first to enable itin your
+ F<.perlcriticrc> file by providing a F<preferred_modules.ini> configuration file:
+
+    [PreferredModules]
+    config = /path/to/preferred_modules.ini
+
+The  F<preferred_modules.ini> file is using the L<Config::INI> format and can looks like this
+
+    [Do::Not::Recommend]
+    prefer = Another::Package
+    reason = Please prefer using Another::Package rather than package Do::Not::Recommend
+
+    [Avoid::Using::This]
+    [And::Also::That]
+    
+    [No:Reasons]
+    prefer=X
+    
+    [OnlyReason]
+    reason=I'm trying to tell you to do not use it...
+
+=head1 SEE ALSO
+
+L<Perl::Critic>
