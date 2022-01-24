@@ -16,7 +16,14 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.010",
   "NAME" => "Perl::Critic::Policy::PreferredModules",
-  "PREREQ_PM" => {},
+  "PREREQ_PM" => {
+    "Config::INI::Reader" => 0,
+    "Perl::Critic" => 0,
+    "Perl::Critic::Exception::AggregateConfiguration" => 0,
+    "Perl::Critic::Exception::Configuration::Generic" => 0,
+    "Perl::Critic::Policy" => 0,
+    "Perl::Critic::Utils" => 0
+  },
   "TEST_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0,
     "File::Spec" => 0,
@@ -24,9 +31,10 @@ my %WriteMakefileArgs = (
     "Test2::Bundle::Extended" => 0,
     "Test2::Plugin::NoWarnings" => 0,
     "Test2::Tools::Explain" => 0,
+    "Test::MockFile" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -34,12 +42,19 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Config::INI::Reader" => 0,
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "File::Temp" => 0,
+  "Perl::Critic" => 0,
+  "Perl::Critic::Exception::AggregateConfiguration" => 0,
+  "Perl::Critic::Exception::Configuration::Generic" => 0,
+  "Perl::Critic::Policy" => 0,
+  "Perl::Critic::Utils" => 0,
   "Test2::Bundle::Extended" => 0,
   "Test2::Plugin::NoWarnings" => 0,
   "Test2::Tools::Explain" => 0,
+  "Test::MockFile" => 0,
   "Test::More" => 0
 );
 
