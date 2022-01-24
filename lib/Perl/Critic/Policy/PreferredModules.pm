@@ -149,7 +149,7 @@ The  F<preferred_modules.ini> file is using the L<Config::INI> format and can lo
     prefer=X
     
     [OnlyReason]
-    reason=I'm trying to tell you to do not use it...
+    reason="I'm trying to tell you to do not use it..."
 
 =head1 SEE ALSO
 

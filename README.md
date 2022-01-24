@@ -44,7 +44,7 @@ reason = Please prefer using Another::Package rather than package Do::Not::Recom
 prefer=X
 
 [OnlyReason]
-reason=I'm trying to tell you to do not use it...
+reason="I'm trying to tell you to do not use it..."
 ```
 
 # SEE ALSO
