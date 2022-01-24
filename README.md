@@ -25,9 +25,11 @@ Perl::Critic::Policy::PreferredModules - Custom package recommendations
 To use [Perl::Critic::Policy::PreferredModules](https://metacpan.org/pod/Perl%3A%3ACritic%3A%3APolicy%3A%3APreferredModules) you have first to enable itin your
  `.perlcriticrc` file by providing a `preferred_modules.ini` configuration file:
 
-```
+```perl
 [PreferredModules]
 config = /path/to/preferred_modules.ini
+# you can also use '~' in the path for $HOME
+#config = ~/.preferred_modules
 ```
 
 The  `preferred_modules.ini` file is using the [Config::INI](https://metacpan.org/pod/Config%3A%3AINI) format and can looks like this

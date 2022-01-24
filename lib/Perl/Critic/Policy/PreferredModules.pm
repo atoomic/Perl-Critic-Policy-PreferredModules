@@ -22,7 +22,7 @@ sub supported_parameters {
 }
 
 use constant default_severity => $SEVERITY_MEDIUM;
-use constant default_themes   => qw{ core bugs };
+use constant default_themes   => qw{ bugs };
 use constant applies_to       => 'PPI::Statement::Include';
 
 use constant optional_config_attributes => qw{ prefer reason };
@@ -31,6 +31,7 @@ sub initialize_if_enabled {
     my ( $self, $config ) = @_;
 
     my $cfg_file = $config->get('config');
+    $cfg_file =~ s{^~}{$ENV{HOME}};
 
     return $self->_parse_config($cfg_file) ? $TRUE : $FALSE;
 }
@@ -135,6 +136,8 @@ To use L<Perl::Critic::Policy::PreferredModules> you have first to enable itin y
 
     [PreferredModules]
     config = /path/to/preferred_modules.ini
+    # you can also use '~' in the path for $HOME
+    #config = ~/.preferred_modules
 
 The  F<preferred_modules.ini> file is using the L<Config::INI> format and can looks like this
 
