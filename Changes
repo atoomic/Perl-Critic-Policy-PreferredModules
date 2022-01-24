@@ -2,6 +2,8 @@ Revision history for Perl-Critic-Policy-PreferredModules
 
 {{$NEXT}}
 
+0.004     2022-01-24 15:09:18-07:00 America/Denver
+
 - fix pod and avoid duplicate name entry
 
 0.003     2022-01-24 14:29:01-07:00 America/Denver
