@@ -28,6 +28,7 @@ use constant applies_to       => 'PPI::Statement::Include';
 use constant optional_config_attributes => qw{ prefer reason };
 
 # VERSION
+# ABSTRACT: Provide custom package recommendations
 
 sub initialize_if_enabled {
     my ( $self, $config ) = @_;
@@ -125,10 +126,6 @@ __END__
 =pod
 
 =encoding UTF-8
-
-=head1 NAME
-
-Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 =head1 DESCRIPTION
 

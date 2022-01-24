@@ -1,6 +1,6 @@
 # NAME
 
-Perl::Critic::Policy::PreferredModules
+Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 # VERSION
 
@@ -12,10 +12,6 @@ Every project has its own rules for preferring specific packages over others.
 
 This Policy tries to be \`un-opinionated\` and let the user provide a module
 preferences with an explanation and/or suggested alternative.
-
-# NAME
-
-Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 # MODULES
 
