@@ -25,6 +25,8 @@ use constant default_severity => $SEVERITY_MEDIUM;
 use constant default_themes   => qw{ core bugs };
 use constant applies_to       => 'PPI::Statement::Include';
 
+use constant optional_config_attributes => qw{ prefer reason };
+
 sub initialize_if_enabled {
     my ( $self, $config ) = @_;
 
@@ -73,8 +75,7 @@ sub _parse_config {
         return $self->_add_exception(qq[Invalid configuration file $cfg_file]);
     };
 
-    my @optional_args = qw{ prefer reason };
-    my %valid_opts    = map { $_ => 1 } @optional_args;
+    my %valid_opts    = map { $_ => 1 } optional_config_attributes();
 
     foreach my $pkg ( keys %$preferred_cfg ) {
         my $setup = $preferred_cfg->{$pkg};
