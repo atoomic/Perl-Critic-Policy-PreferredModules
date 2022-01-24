@@ -27,6 +27,8 @@ use constant applies_to       => 'PPI::Statement::Include';
 
 use constant optional_config_attributes => qw{ prefer reason };
 
+# VERSION
+
 sub initialize_if_enabled {
     my ( $self, $config ) = @_;
 
