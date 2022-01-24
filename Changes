@@ -2,6 +2,8 @@ Revision history for Perl-Critic-Policy-PreferredModules
 
 {{$NEXT}}
 
+0.002     2022-01-24 09:49:52-07:00 America/Denver
+
 - adjust dependencies requirement
 
 0.001     2022-01-24 09:15:14-07:00 America/Denver
