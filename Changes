@@ -2,7 +2,11 @@ Revision history for Perl-Critic-Policy-PreferredModules
 
 {{$NEXT}}
 
+- fix pod and avoid duplicate name entry
+
 0.003     2022-01-24 14:29:01-07:00 America/Denver
+
+- Do not fail when config is missing
 
 0.002     2022-01-24 09:49:52-07:00 America/Denver
 
