@@ -8,21 +8,20 @@ version 0.003
 
 # DESCRIPTION
 
-Every project could have its own rules for preferring some specific packages 
-over some others.
+Every project has its own rules for preferring specific packages over others.
 
-This Policy tries to be \`non opiniated\` and let the use customize the modules
-preference list and provide a reason at the same time.
+This Policy tries to be \`un-opinionated\` and let the user provide a module
+preferences with an explanation and/or suggested alternative.
 
 # NAME
 
-Perl::Critic::Policy::PreferredModules - Custom package recommendations
+Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 # MODULES
 
 # CONFIGURATION
 
-To use [Perl::Critic::Policy::PreferredModules](https://metacpan.org/pod/Perl%3A%3ACritic%3A%3APolicy%3A%3APreferredModules) you have first to enable itin your
+To use [Perl::Critic::Policy::PreferredModules](https://metacpan.org/pod/Perl%3A%3ACritic%3A%3APolicy%3A%3APreferredModules) you have first to enable it in your
  `.perlcriticrc` file by providing a `preferred_modules.ini` configuration file:
 
 ```perl
@@ -35,18 +34,18 @@ config = /path/to/preferred_modules.ini
 The  `preferred_modules.ini` file is using the [Config::INI](https://metacpan.org/pod/Config%3A%3AINI) format and can looks like this
 
 ```perl
-[Do::Not::Recommend]
+[Do::Not::Use]
 prefer = Another::Package
-reason = Please prefer using Another::Package rather than package Do::Not::Recommend
+reason = "Please use Another::Package rather than Do::Not::Use"
 
 [Avoid::Using::This]
 [And::Also::That]
 
-[No:Reasons]
-prefer=X
+[No:Reason]
+prefer=A::Better:Module
 
-[OnlyReason]
-reason="I'm trying to tell you to do not use it..."
+[Only::Reason]
+reason="If you use this module, a puppy might die."
 ```
 
 # SEE ALSO
