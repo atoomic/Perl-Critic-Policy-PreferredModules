@@ -7,7 +7,7 @@ use 5.010;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Custom package recommendations",
+  "ABSTRACT" => "Provide custom package recommendations",
   "AUTHOR" => "Nicolas R <atoomic\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
