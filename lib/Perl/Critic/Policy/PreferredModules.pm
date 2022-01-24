@@ -126,21 +126,20 @@ __END__
 
 =head1 NAME
 
-Perl::Critic::Policy::PreferredModules - Custom package recommendations
+Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 =head1 DESCRIPTION
 
-Every project could have its own rules for preferring some specific packages 
-over some others.
+Every project has its own rules for preferring specific packages over others.
 
-This Policy tries to be `non opiniated` and let the use customize the modules
-preference list and provide a reason at the same time.
+This Policy tries to be `un-opinionated` and let the user provide a module
+preferences with an explanation and/or suggested alternative.
 
 =head1 MODULES
 
 =head1 CONFIGURATION
 
-To use L<Perl::Critic::Policy::PreferredModules> you have first to enable itin your
+To use L<Perl::Critic::Policy::PreferredModules> you have first to enable it in your
  F<.perlcriticrc> file by providing a F<preferred_modules.ini> configuration file:
 
     [PreferredModules]
@@ -150,18 +149,18 @@ To use L<Perl::Critic::Policy::PreferredModules> you have first to enable itin y
 
 The  F<preferred_modules.ini> file is using the L<Config::INI> format and can looks like this
 
-    [Do::Not::Recommend]
+    [Do::Not::Use]
     prefer = Another::Package
-    reason = Please prefer using Another::Package rather than package Do::Not::Recommend
+    reason = "Please use Another::Package rather than Do::Not::Use"
 
     [Avoid::Using::This]
     [And::Also::That]
+
+    [No:Reason]
+    prefer=A::Better:Module
     
-    [No:Reasons]
-    prefer=X
-    
-    [OnlyReason]
-    reason="I'm trying to tell you to do not use it..."
+    [Only::Reason]
+    reason="If you use this module, a puppy might die."
 
 =head1 SEE ALSO
 
