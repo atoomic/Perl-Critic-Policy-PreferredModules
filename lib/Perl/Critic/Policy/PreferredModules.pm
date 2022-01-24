@@ -3,8 +3,9 @@ package Perl::Critic::Policy::PreferredModules;
 use strict;
 use warnings;
 
-use Perl::Critic::Utils qw{ :severities :classification :ppi $SEVERITY_MEDIUM $TRUE $FALSE };
 use parent 'Perl::Critic::Policy';
+
+use Perl::Critic::Utils qw{ :severities :classification :ppi $SEVERITY_MEDIUM $TRUE $FALSE };
 
 use Perl::Critic::Exception::AggregateConfiguration ();
 use Perl::Critic::Exception::Configuration::Generic ();
@@ -22,7 +23,6 @@ sub supported_parameters {
 }
 
 use constant default_severity => $SEVERITY_MEDIUM;
-use constant default_themes   => qw{ bugs };
 use constant applies_to       => 'PPI::Statement::Include';
 
 use constant optional_config_attributes => qw{ prefer reason };
@@ -33,7 +33,9 @@ sub initialize_if_enabled {
     my $cfg_file = $config->get('config') // '';
     $cfg_file =~ s{^~}{$ENV{HOME}};
 
-    return $self->_parse_config($cfg_file) ? $TRUE : $FALSE;
+    $self->{_is_enabled} = !! $self->_parse_config($cfg_file);
+
+    return $TRUE;
 }
 
 sub _add_exception {
@@ -96,6 +98,7 @@ sub _parse_config {
 sub violates {
     my ( $self, $elem ) = @_;
 
+    return () unless $self->{_is_enabled};
     return () unless $elem;
 
     my $module = $elem->module;
@@ -114,6 +117,12 @@ sub violates {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -157,3 +166,5 @@ The  F<preferred_modules.ini> file is using the L<Config::INI> format and can lo
 =head1 SEE ALSO
 
 L<Perl::Critic>
+
+=cut
