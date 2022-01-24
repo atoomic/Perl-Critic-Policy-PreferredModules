@@ -30,7 +30,7 @@ use constant optional_config_attributes => qw{ prefer reason };
 sub initialize_if_enabled {
     my ( $self, $config ) = @_;
 
-    my $cfg_file = $config->get('config');
+    my $cfg_file = $config->get('config') // '';
     $cfg_file =~ s{^~}{$ENV{HOME}};
 
     return $self->_parse_config($cfg_file) ? $TRUE : $FALSE;
@@ -54,7 +54,7 @@ sub _parse_config {
     my ( $self, $cfg_file ) = @_;
 
     if ( !length $cfg_file ) {
-        return $self->_add_exception(q['config' is not set for policy.]);
+        return;
     }
 
     if ( !-e $cfg_file ) {
