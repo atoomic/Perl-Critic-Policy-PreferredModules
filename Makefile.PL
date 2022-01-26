@@ -32,7 +32,8 @@ my %WriteMakefileArgs = (
     "Test2::Plugin::NoWarnings" => 0,
     "Test2::Tools::Explain" => 0,
     "Test::MockFile" => 0,
-    "Test::More" => 0
+    "Test::More" => 0,
+    "Test::NoTabs" => 0
   },
   "VERSION" => "0.005",
   "test" => {
@@ -55,7 +56,8 @@ my %FallbackPrereqs = (
   "Test2::Plugin::NoWarnings" => 0,
   "Test2::Tools::Explain" => 0,
   "Test::MockFile" => 0,
-  "Test::More" => 0
+  "Test::More" => 0,
+  "Test::NoTabs" => 0
 );
 
 
