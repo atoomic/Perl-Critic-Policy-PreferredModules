@@ -4,7 +4,7 @@ Perl::Critic::Policy::PreferredModules - Provide custom package recommendations
 
 # VERSION
 
-version 0.004
+version 0.005
 
 # DESCRIPTION
 
